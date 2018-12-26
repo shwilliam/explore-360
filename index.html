@@ -90,6 +90,11 @@
       <img id='img-21' crossorigin='anonymous' src='https://farm9.staticflickr.com/8595/15716245809_05895401a9_o.jpg'>
       <img id='img-22' crossorigin='anonymous' src='https://farm1.staticflickr.com/570/22689010573_8e243ddebc_o.jpg'> -->
     </a-assets>
+
+    <a-text id='instructions' font='kelsonsans' color='black' value='shake your device 
+    to be teleported' width='3'
+      position='-.7 0.25 -2' rotation='0 7 1'></a-text>
+
     <a-camera></a-camera>
   </a-scene>
 
@@ -110,7 +115,13 @@
     var shakeEvent = new Shake({ threshold: 15 })
     shakeEvent.start()
 
+    let showingIntro = true
     window.addEventListener('shake', () => {
+      if (showingIntro) {
+        const intro = document.getElementById('instructions')
+        sceneEl.removeChild(intro)
+        showingIntro = false
+      }
       if (activeImg < imgMax) {
         activeImg += 1
       } else {
