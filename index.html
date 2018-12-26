@@ -13,41 +13,56 @@
 <body>
   <a-scene id='scene'>
     <a-assets>
-      <img id='sample' src='./sample.jpg'>
-      <img id='sample2' src='./sample2.jpg'>
+      <img id='img-1' crossorigin='anonymous' src='https://farm3.staticflickr.com/2142/5740583490_eb6d269b31_o.jpg'>
+      <img id='img-2' crossorigin='anonymous' src='https://farm2.staticflickr.com/1486/26611256111_f86572bcb7_o.jpg'>
+      <img id='img-3' crossorigin='anonymous' src='https://farm8.staticflickr.com/7005/6604814529_225d479107_o.jpg'>
+      <img id='img-4' crossorigin='anonymous' src='https://farm8.staticflickr.com/7201/6985950485_9e08101c9e_o.jpg'>
+      <img id='img-5' crossorigin='anonymous' src='https://farm2.staticflickr.com/1973/44011092755_f36e952648_o.jpg'>
+      <!-- <img id='img-6' crossorigin='anonymous' src='https://farm4.staticflickr.com/3333/3340009601_3056efa365_o.jpg'>
+      <img id='img-7' crossorigin='anonymous' src='https://farm5.staticflickr.com/4128/5114075304_b65de4f507_o.jpg'>
+      <img id='img-8' crossorigin='anonymous' src='https://farm2.staticflickr.com/1115/973912231_cf45e313db_o.jpg'>
+      <img id='img-9' crossorigin='anonymous' src='https://farm9.staticflickr.com/8033/8031497374_67ff742599_o.jpg'>
+      <img id='img-10' crossorigin='anonymous' src='https://farm3.staticflickr.com/2563/4062608870_97d194fd50_o.jpg'>
+      <img id='img-11' crossorigin='anonymous' src='https://farm2.staticflickr.com/1477/25866881142_d5b22a818f_o.jpg'>
+      <img id='img-12' crossorigin='anonymous' src='https://farm6.staticflickr.com/5071/14069620980_14512b48b3_o.jpg'>
+      <img id='img-13' crossorigin='anonymous' src='https://farm2.staticflickr.com/1645/24887145462_fdc0ac7376_o.jpg'>
+      <img id='img-14' crossorigin='anonymous' src='https://farm4.staticflickr.com/3132/2908383324_c203e2a20f_o.jpg'>
+      <img id='img-15' crossorigin='anonymous' src='https://farm9.staticflickr.com/8244/8503414022_0f69753bc9_o.jpg'>
+      <img id='img-16' crossorigin='anonymous' src='https://farm1.staticflickr.com/177/421838270_8233280b8e_o.jpg'>
+      <img id='img-17' crossorigin='anonymous' src='https://farm4.staticflickr.com/3080/2588414678_cbbe1c4fda_o.jpg'>
+      <img id='img-18' crossorigin='anonymous' src='https://farm5.staticflickr.com/4098/4891142966_e359a15bb8_o.jpg'>
+      <img id='img-19' crossorigin='anonymous' src='https://farm5.staticflickr.com/4023/4421818643_bf05b73d48_o.jpg'>
+      <img id='img-20' crossorigin='anonymous' src='https://farm4.staticflickr.com/3112/2624253764_df9a613267_o.jpg'>
+      <img id='img-21' crossorigin='anonymous' src='https://farm9.staticflickr.com/8595/15716245809_05895401a9_o.jpg'>
+      <img id='img-22' crossorigin='anonymous' src='https://farm1.staticflickr.com/570/22689010573_8e243ddebc_o.jpg'> -->
     </a-assets>
-
     <a-camera></a-camera>
   </a-scene>
 
   <script type='text/javascript'>
     if (!('ondevicemotion' in window)) { alert('this device is not supported :(') }
 
-    let activeIndex = 0 // initial index
-    const imgIds = [
-      '#sample',
-      '#sample2',
-    ]
-
-    const showNextImage = (i) => {
-      img.setAttribute('src', imgIds[i])
+    let activeImg = 1
+    const imgMax = 5
+    const showNextImage = (num) => {
+      imgEl.setAttribute('src', `#img-${num}`)
     }
 
-    const scene = document.getElementById('scene')
-    const img = document.createElement('a-sky')
-    img.setAttribute('src', '#sample')
-    scene.appendChild(img)
+    const sceneEl = document.getElementById('scene')
+    const imgEl = document.createElement('a-sky')
+    showNextImage(activeImg)
+    sceneEl.appendChild(imgEl)
 
     var shakeEvent = new Shake({ threshold: 15 })
     shakeEvent.start()
 
     window.addEventListener('shake', () => {
-      if (activeIndex < imgIds.length - 1) {
-        activeIndex += 1
+      if (activeImg < imgMax) {
+        activeImg += 1
       } else {
-        activeIndex = 0
+        activeImg = 1
       }
-      showNextImage(activeIndex)
+      showNextImage(activeImg)
     }, false)
   </script>
 </body>
