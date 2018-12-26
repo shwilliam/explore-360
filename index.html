@@ -7,18 +7,49 @@
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <title>👀360</title>
   <script src='https://aframe.io/releases/0.8.0/aframe.min.js'></script>
+  <script type='text/javascript' src='./shake.js'></script>
 </head>
 
 <body>
-  <a-scene>
+  <a-scene id='scene'>
     <a-assets>
       <img id='sample' src='./sample.jpg'>
+      <img id='sample2' src='./sample2.jpg'>
     </a-assets>
-
-    <a-sky id='image-360' radius='10' src='#sample'></a-sky>
 
     <a-camera></a-camera>
   </a-scene>
+
+  <script type='text/javascript'>
+    if (!('ondevicemotion' in window)) { alert('this device is not supported :(') }
+
+    let activeIndex = 0 // initial index
+    const imgIds = [
+      '#sample',
+      '#sample2',
+    ]
+
+    const showNextImage = (i) => {
+      img.setAttribute('src', imgIds[i])
+    }
+
+    const scene = document.getElementById('scene')
+    const img = document.createElement('a-sky')
+    img.setAttribute('src', '#sample')
+    scene.appendChild(img)
+
+    var shakeEvent = new Shake({ threshold: 15 })
+    shakeEvent.start()
+
+    window.addEventListener('shake', () => {
+      if (activeIndex < imgIds.length - 1) {
+        activeIndex += 1
+      } else {
+        activeIndex = 0
+      }
+      showNextImage(activeIndex)
+    }, false)
+  </script>
 </body>
 
 </html>
